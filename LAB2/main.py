@@ -74,7 +74,8 @@ Extend the previous Python program to include tuples. Now, in addition to creati
 input_numbers = input("Enter a series of space-separated integers: ")
 
 # Convert Input:
-
+numbers_list = sorted([int(num) for num in input_numbers.split()])
+sorted_tuple = sorted([int(num) for num in input_numbers.split()])
 
 # Sorting:
 
