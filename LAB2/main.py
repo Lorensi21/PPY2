@@ -438,7 +438,7 @@ dict_to_set = set(numbers_dict.keys())
 # Write Output to File
 student_number = input("Enter your student number: ")
 
-output_file_path = "output_file.txt"
+output_file_path = "output.txt"
 
 with open(output_file_path, "w") as f:
     f.write("Student Number: " + student_number + "\n\n")
@@ -553,8 +553,62 @@ These are fundamental constructs in Python programming that enable you to contro
   The program will generate the list of prime numbers up to 20, perform calculations, and write the results to 'prime_numbers.txt'.
 """
 
+# Read the largest integer from 'output.txt'
+try:
+    with open('output.txt', 'r') as f:
+        output_lines = f.readlines()
+        largest_integer = int(output_lines[0].split()[-1])
+except FileNotFoundError:
+    print("Error: File 'output.txt' not found.")
+    exit(1)
+except ValueError:
+    print("Error: Cannot find the largest integer in 'output.txt'.")
+    exit(1)
+except IndexError:
+    print("Error: No data found in 'output.txt'.")
+    exit(1)
+
+# Generate a list of all prime numbers up to the largest integer
+prime_numbers = []
+for num in range(2, largest_integer + 1):
+    prime = True
+    for i in range(2, int(num ** 0.5) + 1):
+        if num % i == 0:
+            prime = False
+            break
+    if prime:
+        prime_numbers.append(num)
+
+# Print the list of prime numbers
+print("List of prime numbers up to", largest_integer, ":", prime_numbers)
+
+# Calculate the sum of all prime numbers in the list
+prime_sum = sum(prime_numbers)
+
+# Determine the largest and smallest prime numbers in the list
+largest_prime = max(prime_numbers)
+smallest_prime = min(prime_numbers)
+
+# Check if the largest integer itself is prime
+largest_prime_check = True
+for i in range(2, int(largest_integer ** 0.5) + 1):
+    if largest_integer % i == 0:
+        largest_prime_check = False
+        break
+
+# Write the results to 'prime_numbers.txt'
+with open('prime_numbers.txt', 'w') as f:
+    f.write("List of prime numbers: " + str(prime_numbers) + "\n")
+    f.write("Sum of prime numbers: " + str(prime_sum) + "\n")
+    f.write("Largest prime number: " + str(largest_prime) + "\n")
+    f.write("Smallest prime number: " + str(smallest_prime) + "\n")
+    f.write("Is the largest integer prime? " + ("Yes" if largest_prime_check else "No") + "\n")
+
+
+print("Results written to 'prime_numbers.txt'.")
 
 
 """10.
 In the final main.py file, leave the results from task 8 and 9, commit and push
 """
+#attached to git
